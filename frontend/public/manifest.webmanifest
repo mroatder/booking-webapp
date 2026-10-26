@@ -1,0 +1,9 @@
+{
+  "name": "Room Display",
+  "short_name": "Room Display",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "background_color": "#f5f5f5",
+  "theme_color": "#f5f5f5",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }]
+}

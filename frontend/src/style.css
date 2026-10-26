@@ -1,0 +1,543 @@
+/*
+ * Design system - ดูกติกาเต็มที่ docs/UI-STYLE.md (บังคับ: หน้าใหม่/แก้ไขทุกหน้าต้องใช้ token + class จากไฟล์นี้)
+ * โทน: ขาวคม + ตัวอักษรดำ + สีเน้น (accent) ดำ 1 สี + สีสถานะ, มุมโค้งปานกลาง, ไม่มีเงาประกอบการ์ด, เส้นขอบน้อยที่สุด
+ */
+@import 'tailwindcss';
+
+@import '@fontsource/noto-sans-thai/thai-400.css';
+@import '@fontsource/noto-sans-thai/thai-500.css';
+@import '@fontsource/noto-sans-thai/thai-700.css';
+@import '@fontsource/noto-sans-thai/latin-400.css';
+@import '@fontsource/noto-sans-thai/latin-500.css';
+@import '@fontsource/noto-sans-thai/latin-700.css';
+
+@theme {
+  --font-sans: 'Noto Sans Thai', 'Noto Sans', system-ui, sans-serif;
+
+  /* ── Semantic tokens (ใช้ชื่อเหล่านี้ในหน้าใหม่: text-ink, bg-surface, border-line ฯลฯ) ── */
+  --color-ink: #050505; /* ข้อความหลัก, หัวตาราง */
+  --color-muted: #3f3f3f; /* ข้อความรอง */
+  --color-subtle: #8a8a8a; /* placeholder, ไอคอนจาง, คำอธิบายเล็ก */
+  --color-line: #e4e4e4; /* เส้นคั่นที่จำเป็นจริงๆ เท่านั้น */
+  --color-hair: #f0f0f0; /* เส้นบางสุด คั่นแถวย่อยที่ติดกัน */
+  --color-field: #c6c6c6; /* ขอบช่องกรอก / ปุ่มรอง */
+  --color-surface: #f1f1f1; /* พื้นแถบกลุ่ม, ชิป, ช่องค้นหา */
+  --color-canvas: #fafafa; /* พื้น hover */
+  --color-accent: #050505; /* สีเน้นเดียวของระบบ (ดำ) - ปุ่มหลัก, เมนูที่เปิด, focus */
+  --color-accent-strong: #3f3f3f; /* accent ตอน hover */
+  --color-accent-soft: #ececec; /* พื้นอ่อนของ accent */
+  --color-danger: #d0141b; /* ลบ / error เท่านั้น */
+
+  /* ── ตัวอักษรเล็กสุด 12px (รากหน้าเว็บ 15px จึงใช้ 0.8rem; ค่าเดิมของ text-xs = 11.25px อ่านยากบนจอ laptop) ── */
+  --text-xs: 0.8rem;
+  --text-xs--line-height: 1.25;
+
+  /* ── Radius: 2 ระดับ ── */
+  --radius-control: 0.5rem; /* ปุ่ม ช่องกรอก ไอคอนปุ่ม แถบกลุ่ม */
+  --radius-card: 0.75rem; /* กรอบ/แผงใหญ่ */
+
+  /*
+   * จัดสเกล slate เดิมให้เป็นขาว-ดำคม (หน้าเก่าที่ยังใช้ slate-* จึงได้โทนเดียวกันทันที)
+   * หน้าใหม่ห้ามใช้ slate-* ตรงๆ ให้ใช้ semantic token ด้านบน
+   */
+  /* ── สีสถานะ (ไม่ใช่สีเน้น): ฟ้า=ข้อมูล/กำลังใช้, เขียว=สำเร็จ/ว่าง, เหลืองอำพัน=รอ/เตือน, แดง=ผิด/ปฏิเสธ — จูนชุดเดียวทั้งระบบ ── */
+  --color-blue-50: #eef6ff;
+  --color-blue-100: #d9eaff;
+  --color-blue-200: #b9d8ff;
+  --color-blue-300: #86bdff;
+  --color-blue-400: #4f9bf5;
+  --color-blue-500: #2a7de1;
+  --color-blue-600: #1c63c4;
+  --color-blue-700: #1a509f;
+  --color-blue-800: #1b447f;
+  --color-blue-900: #1b3a68;
+  --color-sky-50: #eef6ff;
+  --color-sky-100: #d9eaff;
+  --color-sky-200: #b9d8ff;
+  --color-sky-300: #86bdff;
+  --color-sky-400: #4f9bf5;
+  --color-sky-500: #2a7de1;
+  --color-sky-600: #1c63c4;
+  --color-sky-700: #1a509f;
+  --color-sky-800: #1b447f;
+  --color-sky-900: #1b3a68;
+  --color-indigo-50: #eef6ff;
+  --color-indigo-100: #d9eaff;
+  --color-indigo-200: #b9d8ff;
+  --color-indigo-300: #86bdff;
+  --color-indigo-400: #4f9bf5;
+  --color-indigo-500: #2a7de1;
+  --color-indigo-600: #1c63c4;
+  --color-indigo-700: #1a509f;
+  --color-indigo-800: #1b447f;
+  --color-indigo-900: #1b3a68;
+  --color-emerald-50: #effaf4;
+  --color-emerald-100: #d6f3e2;
+  --color-emerald-200: #aee6c8;
+  --color-emerald-300: #7dd3a9;
+  --color-emerald-400: #3fbb82;
+  --color-emerald-500: #16a068;
+  --color-emerald-600: #0f8a58;
+  --color-emerald-700: #0d6e48;
+  --color-emerald-800: #0c573a;
+  --color-emerald-900: #0a4630;
+  --color-green-50: #effaf4;
+  --color-green-100: #d6f3e2;
+  --color-green-200: #aee6c8;
+  --color-green-300: #7dd3a9;
+  --color-green-400: #3fbb82;
+  --color-green-500: #16a068;
+  --color-green-600: #0f8a58;
+  --color-green-700: #0d6e48;
+  --color-green-800: #0c573a;
+  --color-green-900: #0a4630;
+  --color-amber-50: #fff8eb;
+  --color-amber-100: #ffecc6;
+  --color-amber-200: #ffd98a;
+  --color-amber-300: #fcc044;
+  --color-amber-400: #f5a50f;
+  --color-amber-500: #db8a06;
+  --color-amber-600: #b86d04;
+  --color-amber-700: #8f5307;
+  --color-amber-800: #74430c;
+  --color-amber-900: #5f380d;
+  --color-yellow-50: #fff8eb;
+  --color-yellow-100: #ffecc6;
+  --color-yellow-200: #ffd98a;
+  --color-yellow-300: #fcc044;
+  --color-yellow-400: #f5a50f;
+  --color-yellow-500: #db8a06;
+  --color-yellow-600: #b86d04;
+  --color-yellow-700: #8f5307;
+  --color-yellow-800: #74430c;
+  --color-yellow-900: #5f380d;
+  --color-red-50: #fef3f3;
+  --color-red-100: #fde2e2;
+  --color-red-200: #fbc7c8;
+  --color-red-300: #f59ea0;
+  --color-red-400: #ec6a6e;
+  --color-red-500: #e03a40;
+  --color-red-600: #d0141b;
+  --color-red-700: #ac1016;
+  --color-red-800: #8a0f14;
+  --color-red-900: #6e0b10;
+  --color-orange-50: #fff4ec;
+  --color-orange-100: #ffe5d1;
+  --color-orange-200: #ffcaa3;
+  --color-orange-300: #ffa86b;
+  --color-orange-400: #fb8638;
+  --color-orange-500: #ee6a14;
+  --color-orange-600: #d0540c;
+  --color-orange-700: #a8420d;
+  --color-orange-800: #86380f;
+  --color-orange-900: #6c3010;
+
+  --color-slate-50: #fafafa;
+  --color-slate-100: #f1f1f1;
+  --color-slate-200: #e4e4e4;
+  --color-slate-300: #c6c6c6;
+  --color-slate-400: #8a8a8a;
+  --color-slate-500: #666666;
+  --color-slate-600: #3f3f3f;
+  --color-slate-700: #2a2a2a;
+  --color-slate-800: #141414;
+  --color-slate-900: #050505;
+}
+
+body {
+  @apply bg-white text-ink antialiased;
+  font-feature-settings: 'tnum' 1;
+  text-rendering: optimizeLegibility;
+}
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+::selection {
+  background: var(--color-accent);
+  color: #fff;
+}
+input,
+textarea {
+  caret-color: var(--color-accent);
+}
+/* หน้าต่างแคบ (ครึ่งจอ ฯลฯ): ลดขนาดฐาน rem เหลือ 15px - จอปกติ ≥1280px คง 16px */
+@media (max-width: 1279px) {
+  html {
+    font-size: 15px;
+  }
+}
+html {
+  scrollbar-gutter: stable;
+  scrollbar-color: var(--color-field) transparent;
+  scrollbar-width: thin;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ช่องกรอกทุกชนิดทั้งเว็บ: ตอนพิมพ์ให้มีเส้นขอบเส้นเดียว (ไม่ซ้อนกับ outline) */
+input:not([type='checkbox'], [type='radio'], [type='range']):focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: none;
+}
+input:not([type='checkbox'], [type='radio'], [type='range']):focus,
+select:focus,
+textarea:focus {
+  border-color: var(--color-accent);
+  box-shadow: none;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ───────── ช่องบังคับกรอก ─────────
+ * ป้ายที่ตามด้วยช่อง required (ติดกันหรืออยู่ใน wrapper ถัดไป) จะมีดอกจันสีแดงต่อท้ายอัตโนมัติ
+ * ป้ายที่ใส่ดอกจันเองอยู่แล้ว (span.text-red-500) ข้ามไม่ซ้ำ - และทุกฟอร์มที่มีช่อง required จะมีบรรทัดอธิบายบนสุด
+ * (ข้อความมาจากตัวแปร --required-note ที่ App.vue ตั้งตามภาษา) */
+label:not(:has(> .text-red-500)):has(+ :required, + * :required, + * + :required)::after,
+legend:not(:has(> .text-red-500)):has(+ :required, + * :required)::after {
+  content: ' *';
+  color: var(--color-danger);
+  font-weight: 600;
+}
+form:has(:required):not(.no-required-note, .modal-backdrop, .modal-panel, .modal-backdrop form, .modal-panel form)::before,
+.modal-body:has(:required)::before {
+  content: var(--required-note, '');
+  display: block;
+  grid-column: 1 / -1;
+  flex-basis: 100%;
+  width: 100%;
+  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
+  color: var(--color-subtle);
+}
+
+@layer components {
+  /* ───────── ปุ่ม ───────── */
+  .btn {
+    @apply inline-flex cursor-pointer items-center justify-center gap-1.5 rounded-control border border-transparent px-4 py-2 text-sm font-medium whitespace-nowrap transition-[background-color,color,border-color,transform] duration-150 ease-out active:translate-y-px;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply bg-accent text-white hover:bg-accent-strong;
+  }
+  .btn-secondary {
+    @apply border-field bg-white text-ink hover:border-subtle hover:bg-canvas;
+  }
+  .btn-danger {
+    @apply bg-danger text-white hover:bg-danger/90;
+  }
+  .btn-sm {
+    @apply px-3 py-1 text-xs;
+  }
+  /* ปุ่มไอคอนล้วน (แก้ไข/ลบ/ปิด) */
+  .icon-btn {
+    @apply inline-grid h-8 w-8 cursor-pointer place-items-center rounded-control text-subtle transition-colors duration-150;
+    @apply hover:bg-surface hover:text-accent active:bg-line disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-subtle;
+  }
+  .icon-btn-danger {
+    @apply hover:text-danger;
+  }
+  /* ลิงก์เป็นข้อความ (ใช้ในตารางแบบข้อความ) */
+  .link-action {
+    @apply relative cursor-pointer text-muted underline-offset-4 transition-colors hover:text-ink hover:underline;
+  }
+  .link-danger {
+    @apply relative cursor-pointer text-muted underline-offset-4 transition-colors hover:text-danger hover:underline;
+  }
+  /* ขยายพื้นที่กดให้ถึง 24px+ โดยไม่เปลี่ยนระยะที่เห็น (ปุ่มลิงก์ในตารางสูงแค่ ~19px) */
+  .link-action::after,
+  .link-danger::after {
+    content: '';
+    position: absolute;
+    inset: -4px -6px;
+  }
+
+  /* ───────── ฟอร์ม ───────── */
+  .input {
+    @apply w-full rounded-control border border-field bg-white px-3 py-2 text-sm text-ink transition-colors duration-150 placeholder:text-subtle hover:border-subtle;
+    @apply focus:border-accent focus:outline-none;
+    @apply disabled:bg-surface disabled:text-muted disabled:hover:border-field;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-medium text-ink;
+  }
+  /* ช่องค้นหา: พื้นเทาไม่มีขอบ มีไอคอนอยู่ซ้าย (วาง AppIcon ไว้เป็นพี่น้องแบบ absolute) */
+  .search-input {
+    @apply w-full rounded-control border border-transparent bg-surface py-2 pr-3 pl-9 text-sm text-ink placeholder:text-subtle;
+    @apply focus:border-accent focus:bg-white focus:outline-none;
+  }
+
+  /* ───────── หัวข้อ / ชิป ───────── */
+  .page-title {
+    @apply text-2xl leading-snug font-bold tracking-tight text-ink;
+  }
+  .chip {
+    @apply inline-block rounded-full bg-surface px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-muted;
+  }
+  .chip-accent {
+    @apply bg-accent-soft text-accent;
+  }
+  .chip-solid {
+    @apply bg-accent text-white;
+  }
+  /* ปุ่มกรอง: ใส่ aria-pressed="true|false" */
+  .filter-chip {
+    @apply cursor-pointer rounded-full bg-surface px-3.5 py-1 text-sm font-medium text-muted transition-[background-color,color,transform] duration-150;
+    @apply hover:bg-line hover:text-ink active:scale-[0.97] aria-pressed:bg-accent aria-pressed:text-white;
+  }
+
+  /* ───────── ตารางข้อมูล (แบนไม่มีกรอบ/เงา) ─────────
+   * โครงสร้างกลุ่ม: <tr class="row-group"> (แผนกหลัก/หัวกลุ่ม) + <tr class="row-sub"> (รายการย่อย) + <tr class="row-gap">
+   * ตารางแบบไม่มีลำดับชั้น ใช้ <tr> ธรรมดาได้เลย
+   */
+  .data-table {
+    @apply w-full text-sm;
+  }
+  .data-table th {
+    @apply px-2 py-3 text-left text-xs font-semibold text-muted xl:px-4;
+  }
+  .data-table td {
+    @apply h-12 px-2 text-muted transition-colors duration-100 xl:px-4;
+  }
+  .data-table tbody tr:hover td {
+    @apply bg-canvas;
+  }
+  .data-table .row-group td {
+    @apply h-[52px] bg-surface font-semibold text-ink;
+  }
+  .data-table .row-group:hover td {
+    @apply bg-line;
+  }
+  .data-table .row-group td:first-child {
+    @apply rounded-l-control;
+  }
+  .data-table .row-group td:last-child {
+    @apply rounded-r-control;
+  }
+  .data-table .row-sub td {
+    @apply h-11;
+  }
+  .data-table .row-sub + .row-sub td {
+    box-shadow: inset 0 1px 0 var(--color-hair);
+  }
+  /* ตารางที่แต่ละแถวสูงหลายบรรทัด: เส้นบางคั่นแถวให้สายตาไล่ตามง่าย */
+  .data-table.ruled thead th {
+    @apply bg-surface text-ink;
+  }
+  .data-table.ruled thead th:first-child {
+    @apply rounded-l-control;
+  }
+  .data-table.ruled thead th:last-child {
+    @apply rounded-r-control;
+  }
+  .data-table.ruled tbody tr + tr td {
+    box-shadow: inset 0 1px 0 var(--color-hair);
+  }
+  .data-table .row-gap td {
+    @apply h-2.5 bg-transparent p-0;
+  }
+
+  /* ───────── ตัวสลับ/แท็บแบบแคปซูล (segmented) - ใช้ทั้งระบบแทนปุ่มสลับที่เขียนเอง: ปุ่มใส่ aria-pressed หรือคลาส is-active ───────── */
+  .seg {
+    @apply inline-flex flex-wrap gap-0.5 rounded-control bg-surface p-1;
+  }
+  .seg-btn {
+    @apply cursor-pointer rounded-control px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-muted transition-colors duration-150 hover:text-ink;
+    @apply aria-pressed:bg-accent aria-pressed:text-white;
+  }
+  .seg-btn.is-active {
+    @apply bg-accent text-white hover:text-white;
+  }
+  /* รายการเลือกแนวตั้งข้างเนื้อหา (เช่น เลือกห้อง): ใส่ aria-pressed="true|false" */
+  .rail-btn {
+    @apply cursor-pointer rounded-control px-2.5 py-1.5 text-left text-sm font-medium text-muted transition-colors duration-150;
+    @apply hover:bg-surface hover:text-ink aria-pressed:bg-surface aria-pressed:font-semibold aria-pressed:text-ink;
+  }
+  /* แถบตัวกรองเหนือตาราง: แบนไม่มีกรอบ, หัวกลุ่มเล็กอยู่เหนือตัวควบคุม */
+  .filter-bar {
+    @apply mb-4 flex flex-wrap items-end gap-x-6 gap-y-3;
+  }
+  .filter-label {
+    @apply mb-1 block text-xs font-semibold text-muted;
+  }
+  /* คำอธิบายใต้หัวหน้า: สั้น อ่านจบในบรรทัดเดียว-สองบรรทัด */
+  .page-note {
+    @apply mt-1 max-w-3xl text-sm text-muted;
+  }
+  /* ฟอร์มยาวแบบแถวหัวข้อ: หัวข้อ+คำอธิบายซ้าย ช่องกรอกขวา (กว้างพอดีข้อมูล) คั่นแถวด้วยเส้นบาง */
+  .form-row {
+    @apply grid gap-x-8 gap-y-3 border-t border-hair py-5 first:border-t-0 first:pt-0 lg:grid-cols-[15rem_minmax(0,1fr)];
+  }
+  .form-row-title {
+    @apply text-sm font-semibold text-ink;
+  }
+  .form-row-note {
+    @apply mt-1 text-xs text-muted;
+  }
+  .form-row-body {
+    @apply min-w-0;
+  }
+  /* สถานะว่าง: ข้อความ + ปุ่มทำต่อ */
+  .empty-state {
+    @apply flex flex-col items-center gap-3 px-4 py-12 text-center text-sm text-subtle;
+  }
+  /* ตารางที่ไม่มีข้อมูล: ซ่อนหัวตาราง เหลือแต่ข้อความว่าง */
+  .data-table:has(tbody > tr:only-child .empty-state) thead {
+    @apply hidden;
+  }
+  /* (เดิมจำกัดความกว้างตารางรายการสั้น - เลิกใช้เพราะทำให้ซ้าย-ขวาไม่สมดุลกับหัวหน้า) */
+  .table-narrow {
+    @apply w-full;
+  }
+  /* หัวกลุ่มในฟอร์มยาว (เช่น ช่วงเวลา / สถานที่ / ผู้เดินทาง) */
+  .form-section-title {
+    @apply mb-3 text-sm font-semibold text-ink;
+  }
+  /* ปุ่มจัดการท้ายแถว: ปุ่มหลักบน ลิงก์รองเรียงใต้ - ตำแหน่งเดียวกันทุกแถว */
+  .row-actions {
+    @apply flex flex-col items-end gap-1.5 text-xs;
+  }
+  .row-actions-links {
+    @apply flex flex-wrap items-center justify-end gap-1;
+  }
+  /* พื้นที่กดของลิงก์ท้ายแถวไม่ต่ำกว่า ~28px แม้ตัวอักษรเล็ก */
+  .row-actions-links > * {
+    @apply rounded-control px-2 py-1.5 whitespace-nowrap hover:bg-surface;
+  }
+
+  /* ───────── Modal ───────── */
+  .modal-backdrop {
+    @apply fixed inset-0 z-50 flex items-center justify-center bg-black/55 p-4;
+    animation: fade-in 0.16s ease-out;
+  }
+  .modal-panel {
+    @apply flex w-full flex-col rounded-2xl bg-white shadow-2xl ring-1 ring-black/5;
+    animation: rise-in 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .modal-header {
+    @apply flex items-center justify-between px-5 pt-4 pb-2 text-base font-semibold text-ink;
+  }
+  .modal-body {
+    @apply space-y-4 px-5 py-3;
+  }
+  .modal-footer {
+    @apply flex justify-end gap-2 px-5 pt-3 pb-4;
+  }
+
+  /* ───────── โครงหน้า: กว้างสูงสุด 1400px อยู่กลางจอ (จอเล็กกว่านั้นเต็มจอ) padding เท่ากันทั้งระบบ ───────── */
+  .page-container {
+    @apply mx-auto w-full max-w-[1400px] px-4 py-5 sm:px-6;
+  }
+  .page-bar {
+    @apply mx-auto w-full max-w-[1400px] px-4 sm:px-6;
+  }
+
+  /* ───────── นำทาง ───────── */
+  /* เมนูหลักบน header: ใส่ active-class="nav-link-active" */
+  .nav-link {
+    @apply py-1 text-sm font-medium whitespace-nowrap text-muted transition-colors duration-150 hover:text-ink;
+  }
+  .nav-link-active {
+    @apply font-semibold text-ink;
+  }
+  /* ตัวเลขจำนวนงานรอดำเนินการ: บนเมนูย่อย (SubNav) และกระดิ่งแจ้งเตือน (.count-badge-float = ลอยมุมปุ่ม) */
+  .count-badge {
+    @apply inline-flex min-w-[1.25rem] items-center justify-center rounded-full bg-danger px-1.5 text-xs leading-5 font-semibold text-white;
+  }
+  .count-badge-float {
+    @apply absolute -top-1 -right-1 min-w-[1.125rem] px-1 text-[0.6875rem] leading-[1.125rem];
+  }
+  /* เมนูหล่นของกระดิ่งแจ้งเตือน */
+  .notice-menu {
+    @apply absolute right-0 z-50 mt-2 w-72 rounded-lg bg-white py-1 shadow-lg ring-1 ring-line;
+    animation: rise-in 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+    transform-origin: top right;
+  }
+  .notice-item {
+    @apply flex items-center justify-between gap-3 px-4 py-2.5 text-sm text-ink hover:bg-canvas;
+  }
+  /* เมนูย่อยใต้ header - ใช้ผ่าน components/common/SubNav.vue เท่านั้น */
+  /* ตรึงใต้ header (สูง 56px = top-14) ไม่เลื่อนตามหน้า */
+  .subnav {
+    @apply sticky top-14 z-30 bg-white;
+  }
+  .subnav-link {
+    @apply -mb-px inline-flex items-center gap-2 border-b-[3px] border-transparent px-3.5 pt-3 pb-2.5 text-sm font-medium whitespace-nowrap text-muted transition-colors duration-150 hover:text-ink;
+  }
+  /* เมนูย่อยเยอะ (>6 รายการ): จอเล็กกว่า 1366px ซ่อนไอคอนและลดระยะ เพื่อให้อยู่บรรทัดเดียว */
+  .subnav-dense .subnav-link {
+    @apply max-[1365px]:px-2.5 max-[1023px]:px-1.5 max-[1023px]:text-[0.8125rem];
+  }
+  .subnav-dense .subnav-link svg {
+    @apply max-[1365px]:hidden!;
+  }
+  .subnav-link:first-child {
+    @apply sm:-ml-3.5;
+  }
+  .subnav-link svg {
+    @apply text-subtle;
+  }
+  .subnav-link.is-active {
+    @apply border-accent font-semibold text-ink;
+  }
+  .subnav-link.is-active svg {
+    @apply text-accent;
+  }
+}
+
+/* พิมพ์/บันทึก PDF: แสดงเฉพาะเอกสารฟอร์ม (#print-area, #print-w-hr-009) ส่วนอื่นของหน้าเว็บ display: none
+   - ต้องอยู่ใน global CSS (ถ้าใส่ <style scoped> selector นี้จะไม่ครอบคลุมทั้งหน้า)
+   - ใช้ display: none ไม่ใช่ visibility: hidden เพราะ visibility ยังกินพื้นที่ ทำให้หน้าเว็บที่ซ่อนอยู่ดันเอกสารเป็นหลายหน้ากระดาษ
+   - ซ่อนทุก element ที่ไม่ใช่ตัวเอกสาร ไม่ใช่ลูกของเอกสาร และไม่ใช่บรรพบุรุษของเอกสาร (:has) */
+@media print {
+  /* ฟอร์มพิมพ์ทุกใบ (W-HR-009, ใบจัดรถรับส่ง) เป็นกระดาษ A4 แนวตั้ง */
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+  body
+    *:not(:has(#print-area, #print-w-hr-009)):not(#print-area, #print-w-hr-009):not(#print-area *, #print-w-hr-009 *) {
+    display: none !important;
+  }
+  #print-area,
+  #print-w-hr-009 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 10mm;
+  }
+  #print-w-hr-009 {
+    padding: 14mm 12mm 12mm 12mm;
+  }
+}

@@ -1,0 +1,31 @@
+.DS_Store
+Thumbs.db
+*.log
+
+# ---- ข้อมูลลับ / ข้อมูลเฉพาะเครื่อง: ห้ามขึ้น git เด็ดขาด ----
+# ค่าตั้งจริง (รหัสผ่าน DB, LDAP, SMTP, JWT) - มีแต่ .env.example ที่ commit ได้
+.env
+.env.*
+!.env.example
+# ใบรับรอง / กุญแจ
+*.pem
+*.key
+*.pfx
+*.crt
+certs/
+# สำรองฐานข้อมูล / ข้อมูลที่ export ออกมา
+*.bak
+*.mdf
+*.ldf
+*.sql.gz
+*backup*/
+cleanup_*.json
+# ไฟล์ที่ผู้ใช้อัปโหลด (ไฟล์แนบ, ลายเซ็น)
+uploads/
+# เครื่องมือ/ผลลัพธ์ build
+node_modules/
+dist/
+coverage/
+.devlog-*.txt
+# web.config ตัวจริงเก็บที่ deploy/iis/ เท่านั้น (ตัวที่ราก = ไฟล์ตัวอย่างชั่วคราว)
+/web.config
